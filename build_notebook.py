@@ -1,58 +1,50 @@
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "id": "title",
-   "metadata": {},
-   "source": [
+import json
+
+def md(lines, cell_id):
+    return {"cell_type": "markdown", "id": cell_id, "metadata": {}, "source": lines}
+
+def code(lines, cell_id):
+    return {"cell_type": "code", "execution_count": None, "id": cell_id, "metadata": {}, "outputs": [], "source": lines}
+
+cells = []
+
+# TITLE + TOC
+cells.append(md([
     "# Thinking Data\n",
     "\n",
     "Before writing a single line of code, you must learn to **think like a data person**. This note covers the entire lifecycle of working with data -- from collecting it to presenting your findings."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "toc",
-   "metadata": {},
-   "source": [
+], "title"))
+
+cells.append(md([
     "## Table of Contents\n",
     "\n",
     "1. [Data Collection](#1.-Data-Collection)\n",
     "2. [Data Cleaning (Pre Processing)](#2.-Data-Cleaning)\n",
     "3. [Data Analysis](#3.-Data-Analysis)\n",
     "4. [Data Visualization](#4.-Data-Visualization)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-intro",
-   "metadata": {},
-   "source": [
+], "toc"))
+
+# ============================================================
+# SECTION 1: DATA COLLECTION
+# ============================================================
+cells.append(md([
     "---\n",
     "# 1. Data Collection\n",
     "\n",
     "Data collection is the process of gathering information from various sources. It is the **foundation** of everything that follows -- if you collect bad data, every analysis you do on it will be wrong.\n",
     "\n",
     "> **\"Garbage In, Garbage Out\"** -- A computer can only give you good answers if you give it good data."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-why",
-   "metadata": {},
-   "source": [
+], "s1-intro"))
+
+cells.append(md([
     "## 1.1 Why Data Collection Matters\n",
     "\n",
     "- Sets the **ceiling** for analysis quality\n",
     "- Even the best algorithm cannot fix bad inputs\n",
     "- Must be **deliberate**, **documented**, and **reproducible**"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-types",
-   "metadata": {},
-   "source": [
+], "s1-why"))
+
+cells.append(md([
     "## 1.2 Types of Data\n",
     "\n",
     "| Type | Description | Examples |\n",
@@ -62,15 +54,9 @@
     "| **Structured** | Organized in rows and columns | Database tables, spreadsheets |\n",
     "| **Unstructured** | No predefined format | Images, videos, emails |\n",
     "| **Semi-structured** | Some organization but not tabular | JSON, XML, log files |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s1-types-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s1-types"))
+
+cells.append(code([
     "# Quantitative data: numbers you can calculate with\n",
     "ages = [25, 30, 35, 28, 32]\n",
     "salaries = [50000, 60000, 75000, 55000, 62000]\n",
@@ -87,13 +73,9 @@
     "print(\"\\nCities:\", cities)\n",
     "print(\"Unique departments:\", set(departments))\n",
     "print(\"Number of departments:\", len(set(departments)))"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-sources",
-   "metadata": {},
-   "source": [
+], "s1-types-code"))
+
+cells.append(md([
     "## 1.3 Common Data Sources\n",
     "\n",
     "| Source | Description | When to Use |\n",
@@ -105,15 +87,9 @@
     "| **Surveys & Forms** | Questionnaires, Google Forms | Collecting primary data |\n",
     "| **Public Datasets** | Government, Kaggle, UCI | Research, learning |\n",
     "| **Sensors & IoT** | Temperature sensors, GPS | Real-world measurements |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s1-sources-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s1-sources"))
+
+cells.append(code([
     "# Representing data from different sources using plain Python\n",
     "\n",
     "# 1. Data from a CSV file (simulated as list of dicts)\n",
@@ -151,13 +127,9 @@
     "print(\"\\nDatabase-like data (list of tuples):\")\n",
     "for emp_id, dept, headcount in db_data:\n",
     "    print(f\"  Employee {emp_id}: {dept} ({headcount} people)\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-methods",
-   "metadata": {},
-   "source": [
+], "s1-sources-code"))
+
+cells.append(md([
     "## 1.4 Data Collection Methods\n",
     "\n",
     "### Primary Data Collection\n",
@@ -173,13 +145,9 @@
     "- **Company databases** -- Internal records\n",
     "- **Third-party APIs** -- Weather, finance, social media\n",
     "- **Published research** -- Academic papers, reports"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-quality",
-   "metadata": {},
-   "source": [
+], "s1-methods"))
+
+cells.append(md([
     "## 1.5 Data Quality Dimensions\n",
     "\n",
     "Before you collect data, understand what makes data **good**:\n",
@@ -192,13 +160,9 @@
     "| **Timeliness** | Data is up-to-date | Is this current? |\n",
     "| **Relevance** | Data answers your question | Does this help me? |\n",
     "| **Validity** | Data follows expected rules | Does this make sense? |"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-mistakes",
-   "metadata": {},
-   "source": [
+], "s1-quality"))
+
+cells.append(md([
     "## 1.6 Common Mistakes in Data Collection\n",
     "\n",
     "1. **Collecting too much data** -- More data is not always better; focus on relevance\n",
@@ -206,13 +170,9 @@
     "3. **Biased sampling** -- Collecting data that does not represent the whole population\n",
     "4. **Ignoring data quality** -- Not checking if data is accurate or complete\n",
     "5. **No backup plan** -- Losing data because it was not saved properly"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-best",
-   "metadata": {},
-   "source": [
+], "s1-mistakes"))
+
+cells.append(md([
     "## 1.7 Best Practices\n",
     "\n",
     "1. **Define your goal first** -- Know what question you are trying to answer\n",
@@ -221,15 +181,9 @@
     "4. **Store raw data separately** -- Keep original data untouched; work on copies\n",
     "5. **Use version control** -- Track changes to your datasets\n",
     "6. **Automate when possible** -- Scripts for repeated collection reduce human error"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s1-types-code2",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s1-best"))
+
+cells.append(code([
     "# Data types in plain Python\n",
     "\n",
     "# Different types of data\n",
@@ -260,13 +214,12 @@
     "print(f\"  None values: {none_count}\")\n",
     "print(f\"  Can calculate mean? {sum(data_with_none) / len(data_with_none)} (None treated as 0!)\")\n",
     "print(f\"  Filtered: {[x for x in data_with_none if x is not None]}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s1-assignment",
-   "metadata": {},
-   "source": [
+], "s1-types-code2"))
+
+# ============================================================
+# SECTION 1: PRACTICAL ASSIGNMENT
+# ============================================================
+cells.append(md([
     "---\n",
     "## Practical Assignment: Data Collection\n",
     "\n",
@@ -296,15 +249,9 @@
     "3. **Document** what is missing and what assumptions you made\n",
     "\n",
     "Work with this data:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s1-assignment-data",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s1-assignment"))
+
+cells.append(code([
     "# FRESHCART - Scattered Raw Data from Different Sources\n",
     "\n",
     "# Source 1: Google Sheet (Customer Info)\n",
@@ -352,15 +299,9 @@
     "print(\"-\" * 40)\n",
     "for p in products_excel:\n",
     "    print(f\"  {p}\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s1-solution-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s1-assignment-data"))
+
+cells.append(code([
     "# SOLUTION: Organizing FreshCart Data\n",
     "\n",
     "# Step 1: Analyze each source\n",
@@ -424,26 +365,21 @@
     "print(\"  2. Payment method (cash, UPI, card?)\")\n",
     "print(\"  3. Delivery address\")\n",
     "print(\"  4. Order status (delivered, pending, cancelled?)\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-intro",
-   "metadata": {},
-   "source": [
+], "s1-solution-code"))
+
+# ============================================================
+# SECTION 2: DATA CLEANING
+# ============================================================
+cells.append(md([
     "---\n",
     "# 2. Data Cleaning (Pre Processing)\n",
     "\n",
     "Data cleaning is the process of identifying and correcting errors, inconsistencies, and gaps in a dataset. This phase typically consumes **60-80% of a data project's total time**.\n",
     "\n",
     "> **\"Raw data is rarely analysis-ready.\"** Real-world data is messy -- it has missing values, duplicates, wrong formats, and errors."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-why",
-   "metadata": {},
-   "source": [
+], "s2-intro"))
+
+cells.append(md([
     "## 2.1 Why Data Cleaning Matters\n",
     "\n",
     "- Missing values can **break** analyses and models\n",
@@ -451,15 +387,9 @@
     "- Inconsistent formats lead to **incorrect groupings**\n",
     "- Wrong data types cause **failed calculations**\n",
     "- One wrong entry can **change your entire conclusion**"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-profiling-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-why"))
+
+cells.append(code([
     "# Data Profiling: understand your data before cleaning\n",
     "\n",
     "# Simulated messy dataset as list of dicts\n",
@@ -503,13 +433,9 @@
     "unique_cities = set(c.lower() for c in cities)\n",
     "print(f\"\\n  City values (lowered): {unique_cities}\")\n",
     "print(f\"  Possible inconsistency: same city might have different cases\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-workflow",
-   "metadata": {},
-   "source": [
+], "s2-profiling-code"))
+
+cells.append(md([
     "## 2.2 The Data Cleaning Workflow\n",
     "\n",
     "```",
@@ -521,13 +447,9 @@
     "2. **Identify** -- Find errors, duplicates, inconsistencies, missing values\n",
     "3. **Fix** -- Apply corrections systematically\n",
     "4. **Validate** -- Verify that fixes worked and did not introduce new problems"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-missing-intro",
-   "metadata": {},
-   "source": [
+], "s2-workflow"))
+
+cells.append(md([
     "## 2.3 Common Data Quality Issues\n",
     "\n",
     "### Issue 1: Missing Values\n",
@@ -539,13 +461,9 @@
     "- Data entry errors\n",
     "- System failures during data collection\n",
     "- Merging datasets with different columns"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-missing-strategies",
-   "metadata": {},
-   "source": [
+], "s2-missing-intro"))
+
+cells.append(md([
     "**Strategies to Handle Missing Values:**\n",
     "\n",
     "| Strategy | When to Use | Example |\n",
@@ -559,15 +477,9 @@
     "| **Domain Knowledge** | You know what the value should be | Fill missing category from product name |\n",
     "\n",
     "**Key Decision:** Is the data **Missing Completely at Random (MCAR)**, **Missing at Random (MAR)**, or **Missing Not at Random (MNAR)**? This determines your strategy."
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-missing-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-missing-strategies"))
+
+cells.append(code([
     "# Handling Missing Values with plain Python\n",
     "\n",
     "data = [25, 30, None, 35, None, 28, 32]\n",
@@ -602,13 +514,9 @@
     "filled_mode = [x if x is not None else mode_value for x in cat_data]\n",
     "print(f\"\\nCategory data: {cat_data}\")\n",
     "print(f\"Filled with mode ('{mode_value}'): {filled_mode}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-duplicates",
-   "metadata": {},
-   "source": [
+], "s2-missing-code"))
+
+cells.append(md([
     "### Issue 2: Duplicate Records\n",
     "\n",
     "The same record appears multiple times in your dataset.\n",
@@ -627,15 +535,9 @@
     "1. Identify duplicates using key columns\n",
     "2. Decide which record to keep (first, last, or most complete)\n",
     "3. Merge information from duplicate records if needed"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-duplicates-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-duplicates"))
+
+cells.append(code([
     "# Finding and removing duplicates\n",
     "\n",
     "data = [\n",
@@ -670,13 +572,9 @@
     "print(f\"\\nAfter removing duplicates: {len(unique_data)} rows\")\n",
     "for row in unique_data:\n",
     "    print(f\"  {row}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-formats",
-   "metadata": {},
-   "source": [
+], "s2-duplicates-code"))
+
+cells.append(md([
     "### Issue 3: Inconsistent Formats\n",
     "\n",
     "Same data represented in different ways across the dataset.\n",
@@ -688,15 +586,9 @@
     "| **Whitespace** | ' New York ', 'New York' | Trim leading/trailing spaces |\n",
     "| **Synonyms** | 'USA', 'United States', 'U.S.' | Map to one standard value |\n",
     "| **Units** | '5kg', '5 kg', '5000g' | Convert to same unit |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-formats-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-formats"))
+
+cells.append(code([
     "# Fixing inconsistent formats\n",
     "\n",
     "# 1. Fix text casing\n",
@@ -724,13 +616,9 @@
     "fixed_countries = [mapping.get(c, c) for c in countries]\n",
     "print(\"After mapping:\", fixed_countries)\n",
     "print(\"Unique:\", list(set(fixed_countries)))"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-dtypes",
-   "metadata": {},
-   "source": [
+], "s2-formats-code"))
+
+cells.append(md([
     "### Issue 4: Wrong Data Types\n",
     "\n",
     "Data stored in the wrong format prevents calculations and operations.\n",
@@ -741,13 +629,9 @@
     "- Categories stored as numbers\n",
     "\n",
     "**Solution:** Convert columns to their correct data types before analysis."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-outliers-intro",
-   "metadata": {},
-   "source": [
+], "s2-dtypes"))
+
+cells.append(md([
     "### Issue 5: Outliers\n",
     "\n",
     "Values that are significantly different from the rest of the data.\n",
@@ -755,13 +639,9 @@
     "**Types:**\n",
     "- **Error outliers** -- Typos or measurement mistakes --> Remove or correct\n",
     "- **Genuine outliers** -- Real but rare events --> Keep or cap"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-outliers-methods",
-   "metadata": {},
-   "source": [
+], "s2-outliers-intro"))
+
+cells.append(md([
     "**Detection Methods:**\n",
     "\n",
     "| Method | How It Works | Best For |\n",
@@ -775,15 +655,9 @@
     "2. **Cap/Winsorize** -- Replace with the nearest acceptable value\n",
     "3. **Transform** -- Use log or square root to reduce impact\n",
     "4. **Keep** -- If the outlier is meaningful and real"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-outliers-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-outliers-methods"))
+
+cells.append(code([
     "# Detecting outliers using IQR method\n",
     "\n",
     "salaries = [30000, 35000, 40000, 45000, 50000, 500000]\n",
@@ -821,13 +695,9 @@
     "# Cap outliers\n",
     "capped = [max(lower_bound, min(upper_bound, x)) for x in salaries]\n",
     "print(f\"After capping: {[int(x) for x in capped]}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-encoding",
-   "metadata": {},
-   "source": [
+], "s2-outliers-code"))
+
+cells.append(md([
     "## 2.4 Data Transformation\n",
     "\n",
     "Converting data into a format suitable for analysis.\n",
@@ -841,15 +711,9 @@
     "| **Label Encoding** | Assigns a number to each category | Ordinal data | Low=0, Medium=1, High=2 |\n",
     "| **One-Hot Encoding** | Creates a new column for each category | Nominal data | City_NY, City_London |\n",
     "| **Binary Encoding** | Converts categories to binary numbers | Many categories | Category 3 = 011 |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-encoding-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-encoding"))
+
+cells.append(code([
     "# Label Encoding and One-Hot Encoding with plain Python\n",
     "\n",
     "# LABEL ENCODING: assign a number to each category\n",
@@ -873,13 +737,9 @@
     "    is_green = 1 if color == \"green\" else 0\n",
     "    is_red = 1 if color == \"red\" else 0\n",
     "    print(f\"{color:<8} {is_blue:<10} {is_green:<10} {is_red:<10}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-scaling",
-   "metadata": {},
-   "source": [
+], "s2-encoding-code"))
+
+cells.append(md([
     "### Feature Scaling\n",
     "\n",
     "When features have different scales (e.g., age: 0-100, salary: 30000-100000), scaling puts them on the same level.\n",
@@ -889,15 +749,9 @@
     "| **Min-Max** | (x - min) / (max - min) | When data has known bounds |\n",
     "| **Standardization** | (x - mean) / std_dev | When data is normally distributed |\n",
     "| **Normalization** | x / ||x|| | When direction matters (text, images) |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-scaling-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-scaling"))
+
+cells.append(code([
     "# Feature Scaling: Min-Max and Standardization\n",
     "\n",
     "ages = [25, 30, 35, 40, 45]\n",
@@ -934,13 +788,9 @@
     "print(\"\\nAfter Standardization (mean=0, std=1):\")\n",
     "print(f\"  Ages: {[round(x, 2) for x in std_ages]}\")\n",
     "print(f\"  Salaries: {[round(x, 2) for x in std_salaries]}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-feature-eng",
-   "metadata": {},
-   "source": [
+], "s2-scaling-code"))
+
+cells.append(md([
     "### Feature Engineering\n",
     "\n",
     "Creating new, more useful features from existing data.\n",
@@ -951,13 +801,9 @@
     "- From `price` and `quantity` --> calculate `total_cost`\n",
     "- From `first_name` and `last_name` --> create `full_name`\n",
     "- From `text` --> extract `word_count`, `sentiment`"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-validation",
-   "metadata": {},
-   "source": [
+], "s2-feature-eng"))
+
+cells.append(md([
     "## 2.5 Data Validation Checklist\n",
     "\n",
     "After cleaning, verify your data:\n",
@@ -970,13 +816,12 @@
     "6. Dates are in a standard format\n",
     "7. No outliers without explanation\n",
     "8. The data still answers your original question"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s2-assignment",
-   "metadata": {},
-   "source": [
+], "s2-validation"))
+
+# ============================================================
+# SECTION 2: PRACTICAL ASSIGNMENT
+# ============================================================
+cells.append(md([
     "---\n",
     "## Practical Assignment: Data Cleaning\n",
     "\n",
@@ -1004,15 +849,9 @@
     "5. Documenting every change you make\n",
     "\n",
     "Work with this data:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-assignment-data",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-assignment"))
+
+cells.append(code([
     "# HEALTHFIRST CLINIC - Messy Appointment Data\n",
     "\n",
     "appointments = [\n",
@@ -1038,15 +877,9 @@
     "    print(f\"{a['patient_name']:<20} {age:<6} {phone:<18} {a['appointment']:<12} {a['doctor']}\")\n",
     "\n",
     "print(f\"\\nTotal records: {len(appointments)}\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s2-solution-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s2-assignment-data"))
+
+cells.append(code([
     "# SOLUTION: Cleaning HealthFirst Clinic Data\n",
     "\n",
     "print(\"CLEANING PROCESS\")\n",
@@ -1120,24 +953,19 @@
     "    print(f\"{a['patient_name']:<20} {a['age']:<6} {a['phone']:<14} {a['appointment']:<12} {a['doctor']}\")\n",
     "\n",
     "print(f\"\\nOriginal: {len(appointments)} records -> Cleaned: {len(unique)} records\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-intro",
-   "metadata": {},
-   "source": [
+], "s2-solution-code"))
+
+# ============================================================
+# SECTION 3: DATA ANALYSIS
+# ============================================================
+cells.append(md([
     "---\n",
     "# 3. Data Analysis\n",
     "\n",
     "Data analysis is the process of inspecting, cleaning, transforming, and modeling data to discover useful information, draw conclusions, and support decision-making."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-types",
-   "metadata": {},
-   "source": [
+], "s3-intro"))
+
+cells.append(md([
     "## 3.1 Types of Data Analysis\n",
     "\n",
     "| Type | Question It Answers | Example |\n",
@@ -1146,13 +974,9 @@
     "| **Diagnostic** | Why did it happen? | \"Sales dropped because of a supply shortage\" |\n",
     "| **Predictive** | What will happen? | \"Sales will increase by 10% next quarter\" |\n",
     "| **Prescriptive** | What should we do? | \"Increase inventory to meet demand\" |"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-eda",
-   "metadata": {},
-   "source": [
+], "s3-types"))
+
+cells.append(md([
     "## 3.2 Exploratory Data Analysis (EDA)\n",
     "\n",
     "EDA is the first step after cleaning. You explore the data to understand its shape, spot patterns, and generate hypotheses -- **before** any formal modeling.\n",
@@ -1163,13 +987,9 @@
     "2. **Relationships between variables** -- Do two variables move together? Is the relationship linear?\n",
     "3. **Outliers and anomalies** -- Are there extreme values? Are they errors or genuine?\n",
     "4. **Missing patterns** -- Is data missing randomly or in a pattern?"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-central",
-   "metadata": {},
-   "source": [
+], "s3-eda"))
+
+cells.append(md([
     "## 3.3 Key Statistical Concepts\n",
     "\n",
     "### Measures of Central Tendency\n",
@@ -1186,15 +1006,9 @@
     "- Salaries: [30K, 35K, 40K, 45K, 500K]\n",
     "- Mean = 130K (misleading due to outlier)\n",
     "- Median = 40K (more representative)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s3-central-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s3-central"))
+
+cells.append(code([
     "# Calculating Mean, Median, and Mode from scratch\n",
     "\n",
     "salaries = [30000, 35000, 40000, 45000, 500000]\n",
@@ -1221,13 +1035,9 @@
     "\n",
     "print(f\"\\nNotice: Mean ({mean:,.0f}) is much higher than most salaries!\")\n",
     "print(f\"Median ({median:,.0f}) is a better representation of typical salary.\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-spread",
-   "metadata": {},
-   "source": [
+], "s3-central-code"))
+
+cells.append(md([
     "### Measures of Spread\n",
     "\n",
     "These tell you how spread out your data is.\n",
@@ -1238,15 +1048,9 @@
     "| **Variance** | Average squared deviation from mean | Average spread squared |\n",
     "| **Standard Deviation** | Square root of variance | Average spread (same units) |\n",
     "| **IQR** | Q3 - Q1 (middle 50%) | Spread of central data |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s3-spread-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s3-spread"))
+
+cells.append(code([
     "# Calculating Range, Variance, and Standard Deviation\n",
     "\n",
     "data = [10, 12, 23, 23, 16, 23, 21, 16]\n",
@@ -1271,13 +1075,9 @@
     "print(f\"Standard Deviation: {std_dev:.2f}\")\n",
     "\n",
     "print(f\"\\nMost values are within {mean - std_dev:.1f} to {mean + std_dev:.1f} (mean +/- 1 std dev)\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-correlation",
-   "metadata": {},
-   "source": [
+], "s3-spread-code"))
+
+cells.append(md([
     "### Correlation\n",
     "\n",
     "Measures the **strength** and **direction** of the relationship between two variables.\n",
@@ -1291,15 +1091,9 @@
     "**Important:** Correlation does NOT imply causation!\n",
     "- Ice cream sales and drowning rates are correlated\n",
     "- But ice cream does not cause drowning -- both increase in summer (confounding variable: heat)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s3-correlation-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s3-correlation"))
+
+cells.append(code([
     "# Calculating Correlation (Pearson) from scratch\n",
     "\n",
     "# Two variables: hours studied vs exam score\n",
@@ -1334,13 +1128,9 @@
     "for h, s in zip(hours, scores):\n",
     "    bar = \"#\" * (s // 5)\n",
     "    print(f\"  {h:2d}h | {bar} {s}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-significance",
-   "metadata": {},
-   "source": [
+], "s3-correlation-code"))
+
+cells.append(md([
     "## 3.4 Statistical Significance\n",
     "\n",
     "Before concluding that a pattern is real, check if it could have happened by chance.\n",
@@ -1355,26 +1145,18 @@
     "**Decision Rule:**\n",
     "- If p-value < 0.05 --> Reject H0 (the effect is statistically significant)\n",
     "- If p-value >= 0.05 --> Fail to reject H0 (not enough evidence)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-pitfalls",
-   "metadata": {},
-   "source": [
+], "s3-significance"))
+
+cells.append(md([
     "### Common Pitfalls\n",
     "\n",
     "1. **P-hacking** -- Testing many hypotheses until one is significant\n",
     "2. **Confounding variables** -- A hidden variable causing both observed effects\n",
     "3. **Sample size** -- Very large samples can make trivial differences \"significant\"\n",
     "4. **Correlation != Causation** -- Always question the mechanism"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-methods",
-   "metadata": {},
-   "source": [
+], "s3-pitfalls"))
+
+cells.append(md([
     "## 3.5 Analysis Methods by Goal\n",
     "\n",
     "### Descriptive Analysis\n",
@@ -1400,13 +1182,9 @@
     "- Scenario analysis (what-if)\n",
     "- A/B testing\n",
     "- Recommendation systems"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-think",
-   "metadata": {},
-   "source": [
+], "s3-methods"))
+
+cells.append(md([
     "## 3.6 Think Before You Analyze\n",
     "\n",
     "Before diving into analysis, answer these questions:\n",
@@ -1416,13 +1194,12 @@
     "3. **What method fits?** -- Descriptive? Predictive? Comparative?\n",
     "4. **What are my assumptions?** -- Document them and test if they hold\n",
     "5. **What would change the decision?** -- Focus on what matters for action"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s3-assignment",
-   "metadata": {},
-   "source": [
+], "s3-think"))
+
+# ============================================================
+# SECTION 3: PRACTICAL ASSIGNMENT
+# ============================================================
+cells.append(md([
     "---\n",
     "## Practical Assignment: Data Analysis\n",
     "\n",
@@ -1448,15 +1225,9 @@
     "5. Summarize your findings in plain English\n",
     "\n",
     "Work with this data:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s3-assignment-data",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s3-assignment"))
+
+cells.append(code([
     "# BRIGHTSTAR ELECTRONICS - 15 Days of Sales Data\n",
     "\n",
     "sales_data = [\n",
@@ -1497,15 +1268,9 @@
     "\n",
     "print(f\"\\nTotal orders: {len(sales_data)}\")\n",
     "print(f\"Total revenue: {sum(order_values):,}\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s3-solution-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s3-assignment-data"))
+
+cells.append(code([
     "# SOLUTION: Analyzing BrightStar Sales Data\n",
     "\n",
     "print(\"ANALYSIS RESULTS\")\n",
@@ -1625,39 +1390,30 @@
     "print(f\"2. Accessories category leads with {cat_revenue.get('Accessories', 0)/total_rev*100:.0f}% of revenue\")\n",
     "print(f\"3. Discounts DO increase quantity sold (correlation: {correlation:.2f})\")\n",
     "print(f\"4. High-value items (Smartwatch) sell in small quantities\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-intro",
-   "metadata": {},
-   "source": [
+], "s3-solution-code"))
+
+# ============================================================
+# SECTION 4: DATA VISUALIZATION
+# ============================================================
+cells.append(md([
     "---\n",
     "# 4. Data Visualization\n",
     "\n",
     "Data visualization is the process of turning analytical results into clear visual narratives. A good visualization helps people understand data at a glance and drives decisions.\n",
     "\n",
     "> **\"A chart is an argument.\"** -- It should tell a clear story, not just display numbers."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-why",
-   "metadata": {},
-   "source": [
+], "s4-intro"))
+
+cells.append(md([
     "## 4.1 Why Visualization Matters\n",
     "\n",
     "- The human brain processes images **60,000x faster** than text\n",
     "- Patterns, trends, and outliers are **immediately obvious** in a good chart\n",
     "- Makes complex data **accessible** to non-technical audiences\n",
     "- Helps you **communicate** findings effectively"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-chart-selection",
-   "metadata": {},
-   "source": [
+], "s4-why"))
+
+cells.append(md([
     "## 4.2 Choosing the Right Chart\n",
     "\n",
     "| Goal | Chart Type | Best For |\n",
@@ -1671,15 +1427,9 @@
     "| **Outliers** | Box Plot | Showing spread and outliers |\n",
     "| **Geographic** | Map / Choropleth | Location-based data |\n",
     "| **Flow** | Sankey Diagram | Movement or transitions |"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s4-chart-code",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s4-chart-selection"))
+
+cells.append(code([
     "# Text-based charts using plain Python\n",
     "\n",
     "# BAR CHART: comparing categories\n",
@@ -1721,13 +1471,9 @@
     "for age_range, count in bins.items():\n",
     "    bar = \"#\" * (count * 4)\n",
     "    print(f\"{age_range:<8} | {bar} ({count})\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-question-based",
-   "metadata": {},
-   "source": [
+], "s4-chart-code"))
+
+cells.append(md([
     "## 4.3 Question-Based Selection\n",
     "\n",
     "- **\"How much?\"** --> Bar chart, Column chart\n",
@@ -1736,13 +1482,9 @@
     "- **\"What is the relationship?\"** --> Scatter plot, Bubble chart\n",
     "- **\"What is the composition?\"** --> Pie chart (few categories), Stacked bar\n",
     "- **\"Where is it?\"** --> Map, Heat map"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-principles",
-   "metadata": {},
-   "source": [
+], "s4-question-based"))
+
+cells.append(md([
     "## 4.4 Principles of Good Visualization\n",
     "\n",
     "### 1. Clarity Over Decoration\n",
@@ -1767,13 +1509,9 @@
     "- Use **annotations** to highlight key points\n",
     "- Arrange visuals in a **logical flow**\n",
     "- End with a **clear call to action**"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-mistakes",
-   "metadata": {},
-   "source": [
+], "s4-principles"))
+
+cells.append(md([
     "## 4.5 Common Visualization Mistakes\n",
     "\n",
     "| Mistake | Why It Is Bad | Better Approach |\n",
@@ -1785,13 +1523,9 @@
     "| No labels or title | Chart is meaningless without context | Always label axes and add title |\n",
     "| Dual axes without clear distinction | Confusing which axis applies | Use separate charts |\n",
     "| Showing every data point | Overwhelming, no clear message | Aggregate and summarize |"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-dashboard",
-   "metadata": {},
-   "source": [
+], "s4-mistakes"))
+
+cells.append(md([
     "## 4.6 Dashboard Design\n",
     "\n",
     "Dashboards combine multiple visualizations into a single view for ongoing monitoring.\n",
@@ -1820,13 +1554,9 @@
     "|         Detailed Table / Filters     |   <-- Drill-down details\n",
     "+-------------------------------------+\n",
     "```"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-storytelling",
-   "metadata": {},
-   "source": [
+], "s4-dashboard"))
+
+cells.append(md([
     "## 4.7 Telling a Story with Data\n",
     "\n",
     "Every good data presentation follows a narrative arc:\n",
@@ -1844,13 +1574,12 @@
     "- **Use plain language** -- Avoid jargon unless your audience expects it\n",
     "- **Be honest about uncertainty** -- Show confidence intervals, note caveats\n",
     "- **Make it actionable** -- Every insight should lead to a question or decision"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-assignment",
-   "metadata": {},
-   "source": [
+], "s4-storytelling"))
+
+# ============================================================
+# SECTION 4: PRACTICAL ASSIGNMENT
+# ============================================================
+cells.append(md([
     "---\n",
     "## Practical Assignment: Data Visualization\n",
     "\n",
@@ -1875,15 +1604,9 @@
     "4. Write a **one-paragraph summary** of the key findings\n",
     "\n",
     "Work with this data:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s4-assignment-data",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s4-assignment"))
+
+cells.append(code([
     "# CITYBIKE RENTALS - 2 Weeks of Data\n",
     "\n",
     "daily_rentals = [\n",
@@ -1920,15 +1643,9 @@
     "\n",
     "print(f\"\\nTotal rentals over 2 weeks: {sum(d['total'] for d in daily_rentals)}\")\n",
     "print(f\"Rental durations sample (minutes): {rental_durations[:10]}...\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s4-solution-chart1",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s4-assignment-data"))
+
+cells.append(code([
     "# SOLUTION: Text-Based Visualizations for CityBike\n",
     "\n",
     "print(\"=\" * 65)\n",
@@ -1947,15 +1664,9 @@
     "print(f\"\\n  (* = Weekend days, Scale: each # = ~{max_rentals/chart_width:.0f} rentals)\")\n",
     "print(f\"  Pattern: Weekdays ~130-175, Weekends ~195-225\")\n",
     "print(f\"  Trend: Week 2 slightly higher than Week 1 (growth!)\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s4-solution-chart2",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s4-solution-chart1"))
+
+cells.append(code([
     "print(\"\\n\" + \"=\" * 65)\n",
     "print(\"CHART 2: Total Rentals by Area (Bar Chart)\")\n",
     "print(\"=\" * 65)\n",
@@ -1973,15 +1684,9 @@
     "\n",
     "print(f\"\\n  Total across all areas: {sum(area_totals.values()):,}\")\n",
     "print(\"  Insight: Park dominates on weekends, Downtown on weekdays\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "s4-solution-chart3",
-   "metadata": {},
-   "outputs": [],
-   "source": [
+], "s4-solution-chart2"))
+
+cells.append(code([
     "print(\"\\n\" + \"=\" * 65)\n",
     "print(\"CHART 3: Rental Duration Distribution (Histogram)\")\n",
     "print(\"=\" * 65)\n",
@@ -2009,13 +1714,9 @@
     "print(f\"\\n  Total rides sampled: {len(rental_durations)}\")\n",
     "print(f\"  Most rentals are short (15-30 min) - people use bikes for quick trips\")\n",
     "print(f\"  Few rentals over 45 min - long rides are rare\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "s4-solution-report",
-   "metadata": {},
-   "source": [
+], "s4-solution-chart3"))
+
+cells.append(md([
     "### Key Findings (Report Summary)\n",
     "\n",
     "The board should know:\n",
@@ -2033,13 +1734,12 @@
     "**4. Duration Pattern:** Most rides are 15-30 minutes (short commutes). Only 15% exceed 45 minutes.\n",
     "\n",
     "**Recommendation:** Increase bike availability at Park on weekends. Investigate why Station area has low usage."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "conclusion",
-   "metadata": {},
-   "source": [
+], "s4-solution-report"))
+
+# ============================================================
+# CONCLUSION
+# ============================================================
+cells.append(md([
     "---\n",
     "# Summary\n",
     "\n",
@@ -2070,20 +1770,36 @@
     "4. Explore before you model\n",
     "5. Visualize to communicate, not to decorate\n",
     "6. Always link findings to **action**"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "name": "python",
-   "version": "3.11.0"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
+], "conclusion"))
+
+# ============================================================
+# BUILD NOTEBOOK
+# ============================================================
+notebook = {
+    "cells": cells,
+    "metadata": {
+        "kernelspec": {
+            "display_name": "Python 3",
+            "language": "python",
+            "name": "python3"
+        },
+        "language_info": {
+            "name": "python",
+            "version": "3.11.0"
+        }
+    },
+    "nbformat": 4,
+    "nbformat_minor": 5
 }
+
+with open("index.ipynb", "w", encoding="utf-8") as f:
+    json.dump(notebook, f, indent=1, ensure_ascii=False)
+
+# Verify
+with open("index.ipynb", "r", encoding="utf-8") as f:
+    nb = json.load(f)
+
+md_count = sum(1 for c in nb["cells"] if c["cell_type"] == "markdown")
+code_count = sum(1 for c in nb["cells"] if c["cell_type"] == "code")
+print(f"Created notebook: {len(nb['cells'])} cells ({md_count} markdown, {code_count} code)")
+print("Cell IDs:", [c["id"] for c in nb["cells"]])
