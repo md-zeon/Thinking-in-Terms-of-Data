@@ -1,0 +1,80 @@
+{
+  "store": {
+    "name": "TechMart",
+    "location": "New York",
+    "established": 2015
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "category": "Electronics",
+      "price": 999.99,
+      "stock": 50,
+      "ratings": [4.5, 4.8, 4.2, 4.9, 4.6]
+    },
+    {
+      "id": 2,
+      "name": "Wireless Mouse",
+      "category": "Electronics",
+      "price": 29.99,
+      "stock": 200,
+      "ratings": [4.1, 4.3, 3.9]
+    },
+    {
+      "id": 3,
+      "name": "Standing Desk",
+      "category": "Furniture",
+      "price": 449.99,
+      "stock": 25,
+      "ratings": [4.7, 4.9, 4.8]
+    },
+    {
+      "id": 4,
+      "name": "Ergonomic Chair",
+      "category": "Furniture",
+      "price": 299.99,
+      "stock": 35,
+      "ratings": [4.4, 4.2, 4.6, 4.5]
+    },
+    {
+      "id": 5,
+      "name": "Monitor 27 inch",
+      "category": "Electronics",
+      "price": 349.99,
+      "stock": 75,
+      "ratings": [4.3, 4.5, 4.1]
+    },
+    {
+      "id": 6,
+      "name": "Keyboard",
+      "category": "Electronics",
+      "price": 79.99,
+      "stock": 150,
+      "ratings": [4.6, 4.7]
+    },
+    {
+      "id": 7,
+      "name": "Desk Lamp",
+      "category": "Accessories",
+      "price": 39.99,
+      "stock": 100,
+      "ratings": [4.0, 4.2, 3.8]
+    },
+    {
+      "id": 8,
+      "name": "Webcam HD",
+      "category": "Electronics",
+      "price": 89.99,
+      "stock": 60,
+      "ratings": [3.9, 4.1, 4.0]
+    }
+  ],
+  "customers": [
+    {"id": 101, "name": "Alice Johnson", "email": "alice@email.com", "purchases": [1, 5]},
+    {"id": 102, "name": "Bob Smith", "email": "bob@email.com", "purchases": [2, 6, 7]},
+    {"id": 103, "name": "Charlie Brown", "email": "charlie@email.com", "purchases": [3]},
+    {"id": 104, "name": "Diana Prince", "email": "diana@email.com", "purchases": [4, 7, 8]},
+    {"id": 105, "name": "Eve Adams", "email": "eve@email.com", "purchases": [1, 2, 5, 6]}
+  ]
+}
